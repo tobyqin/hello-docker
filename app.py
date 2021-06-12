@@ -1,3 +1,4 @@
+import socket
 from os import environ
 
 import requests
@@ -13,13 +14,14 @@ def index():
     message = environ.get('MESSAGE', 'Kitty')
     color = environ.get('COLOR', 'aliceblue')
     image_url = environ.get('IMAGE', get_a_cat())
+    host = socket.gethostname()
 
     return f"""
    <body style="background-color:{color};text-align:center;padding:20px;font-family: Verdana,sans-serif;">
    <div style="width:50%;margin:auto;box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
     <img src="{image_url}" alt="{message}" style="width:100%">
       <div style="padding: 10px">
-        <p>Hello {message}! <span style="color: gray" >Created by <a href="{site}">{name}</a></span></p>
+        <p>Hello {message}! <span style="color: gray" >Created by <a href="{site}">{name}</a> from {host}</span></p>
       </div>
     </div>
    </body>"""
